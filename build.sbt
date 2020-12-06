@@ -1,6 +1,9 @@
 val dottyVersion = "3.0.0-M2"
 
 lazy val day01 = dayProject(1)
+lazy val day02 = dayProject(2).settings(
+  libraryDependencies += "org.typelevel" %% "cats-parse" % "0.1-31-923a513"
+)
 
 
 lazy val common = project
@@ -22,6 +25,10 @@ def dayProject(day: Int) = Project.apply(f"day_$day%02d", file(f"days/$day%02d")
     version := "0.1.0",
     scalaVersion := dottyVersion,
 
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
+    libraryDependencies ++= Seq(
+      "com.novocode" % "junit-interface" % "0.11" % Test,
+      "org.scalameta" %% "munit" % "0.7.19" % Test
+    ),
+    testFrameworks += new TestFramework("munit.Framework")
   )
   .dependsOn(common)
