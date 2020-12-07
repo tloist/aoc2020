@@ -2,9 +2,11 @@ val dottyVersion = "3.0.0-M2"
 
 lazy val day01 = dayProject(1)
 lazy val day02 = dayProject(2).settings(
-  libraryDependencies += "org.typelevel" %% "cats-parse" % "0.1-31-923a513"
+  libraryDependencies ++= Seq(
+    "org.typelevel" %% "cats-parse" % "0.1-31-923a513"
+  )
 )
-
+lazy val day03 = dayProject(3)
 
 lazy val common = project
   .in(file("days/common"))
