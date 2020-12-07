@@ -1,29 +1,13 @@
 object PasswordListParser {
-  // Not that it has much worth here, just for trying it out
-  opaque type Password = String
-  object Password {
-    // Interesting. Because outer classes are not aware, we need something to 'lift' values into the type
-    // From the view of an insider this is basically just useless code…
-    def apply(input: String): Password = input
-  }
-
-  // 1-3 a: abcde
   import cats._
   import cats.data._
   import cats.implicits._
   import cats.parse.{Parser, Parser1, Numbers, Rfc5234 => Rfc}
 
-  case class ConstrainedChar(char: Char, min: Int, max: Int) {
-    override def toString = s"Char['$char' ${min}x-${max}x]"
-
-    def evaluate(pw: Password): Boolean =
-      val charCount = pw.count(_ == char)
-      min <= charCount && charCount <= max
-  }
-  case class InputLine(constrain: ConstrainedChar, password: Password) {
+  case class InputLine(constrain: ConstrainedChar, password: String) {
     override def toString = s"Input['$password' constrained by $constrain]"
 
-    def isValid: Boolean = constrain.evaluate(password)
+    def isValid(using policy: PasswordPolicy): Boolean = policy.validate(password, constrain)
   }
 
   private[this] val whitespaces0: Parser[Unit] = Rfc.wsp.rep.void

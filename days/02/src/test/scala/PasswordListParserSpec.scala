@@ -18,16 +18,15 @@ class PasswordListParserSpec extends munit.FunSuite {
   test("single constrain can be parsed") {
     checkParseFunc(constrainedCharParser, "1-3 a") { constrained =>
       assertEquals(constrained.char, 'a')
-      assertEquals(constrained.min, 1)
-      assertEquals(constrained.max, 3)
+      assertEquals(constrained.c1, 1)
+      assertEquals(constrained.c2, 3)
     }
   }
 
   test("single input line can be parsed") {
     checkParseFunc(inputLineParser, "1-3 a: ababa") { input =>
-      val pw = PasswordListParser.Password("foo")
       assertEquals(input.constrain, ConstrainedChar('a', 1, 3))
-      assertEquals(input.password, Password("ababa"))
+      assertEquals(input.password, "ababa")
     }
   }
 
@@ -36,8 +35,8 @@ class PasswordListParserSpec extends munit.FunSuite {
                        |2-2 c: acdc""".stripMargin
     checkParseFunc(inputLinesParser, multiline) { _.toList match
       case first :: second :: Nil =>
-        assertEquals(first, InputLine(ConstrainedChar('a', 1, 3), Password("abba")))
-        assertEquals(second, InputLine(ConstrainedChar('c', 2, 2), Password("acdc")))
+        assertEquals(first, InputLine(ConstrainedChar('a', 1, 3), "abba"))
+        assertEquals(second, InputLine(ConstrainedChar('c', 2, 2), "acdc"))
       case strange => fail(s"Not a result list with 2 entries but ${strange.length} entries: $strange")
     }
   }
@@ -48,8 +47,8 @@ class PasswordListParserSpec extends munit.FunSuite {
                        |""".stripMargin
     checkParseFunc(inputLinesParser, multiline) { _.toList match
       case first :: second :: Nil =>
-        assertEquals(first, InputLine(ConstrainedChar('a', 1, 3), Password("abba")))
-        assertEquals(second, InputLine(ConstrainedChar('c', 2, 2), Password("acdc")))
+        assertEquals(first, InputLine(ConstrainedChar('a', 1, 3), "abba"))
+        assertEquals(second, InputLine(ConstrainedChar('c', 2, 2), "acdc"))
       case strange => fail(s"Not a result list with 2 entries but ${strange.length} entries: $strange")
     }
   }
