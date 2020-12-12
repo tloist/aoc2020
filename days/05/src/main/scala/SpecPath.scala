@@ -20,6 +20,8 @@ object SpecPath {
 
     private[this] def toString(specPath: SpecPath): String = specPath.specs.map(_.char).mkString
   }
+  
+  def create(using dimension: GridSeat.Dimension) = SpecPath(dimension.columnMin, dimension.columnMax, dimension.rowMin, dimension.rowMax)
 }
 
 case class SpecPath(colMin: Int, colMax: Int, rowMin: Int, rowMax: Int, specs: List[SpecPath.Step] = List.empty) {
@@ -47,8 +49,10 @@ case class SpecPath(colMin: Int, colMax: Int, rowMin: Int, rowMax: Int, specs: L
     case Row => rowMax == rowMin
   
   def isSpecified: Boolean = SpecDimension.values.forall(isSpecified(_))
-  def seatId: Either[Error, Int] = if isSpecified then Right(colMin * 8 + rowMin) 
-                                                else Left(Error.UnderspecifiedSeat(this)) 
+  def seatId: Either[Error, Int] = toGridSeat.map(_.seatId)
+  
+  def toGridSeat: Either[Error, GridSeat] = if isSpecified then Right(GridSeat(rowMin, colMin))
+                                                           else Left(Error.UnderspecifiedSeat(this))
 
   override def toString: String = s"Spec[rows: $rowMin-$rowMax / cols: $colMin-$colMax]"
 }
