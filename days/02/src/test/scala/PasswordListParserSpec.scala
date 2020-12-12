@@ -1,19 +1,9 @@
-class PasswordListParserSpec extends munit.FunSuite {
-  import cats.parse.{Parser, Parser1}
-  import cats.data._
-  import PasswordListParser._
+import cats.parse.{Parser, Parser1}
+import cats.data._
+import PasswordListParser._
+import ParserSpecs._
 
-  def checkParseFunc[T](parser: Parser[T], input: String)(spec: T => Unit) = {
-    parser.parseAll(input) match {
-      case Right(result) => spec(result)
-      case Left(Parser.Error(offset, expectations)) => 
-        fail(s"""|Parsing of input '$input' failed at position: $offset!
-                 |Input that failed: '${input.charAt(offset - 1)}'.
-                 |Expected: $expectations}
-                 |""".stripMargin
-        )
-    }
-  }
+class PasswordListParserSpec extends munit.FunSuite {
 
   test("single constrain can be parsed") {
     checkParseFunc(constrainedCharParser, "1-3 a") { constrained =>
