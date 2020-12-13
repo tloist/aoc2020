@@ -22,6 +22,4 @@ object SeatSpecificationParser {
   
   def apply(input: String) = linesParser.parseAll(input)
     
-  private[this] val whitespaces0: Parser[Unit] = Rfc.wsp.rep.void
-  private[this] val newline: Parser1[Unit] = Parser.char('\n').surroundedBy(whitespaces0).void
 }

@@ -6,6 +6,7 @@ lazy val day02 = dayProject(2, "Password Philosophy")
 lazy val day03 = dayProject(3, "Toboggan Trajectory")
 lazy val day04 = dayProject(4, "Passport Processing")
 lazy val day05 = dayProject(5, "Binary Boarding")
+lazy val day06 = dayProject(6, "Custom Customs")
 
 lazy val common = project
   .in(file("days/common"))
