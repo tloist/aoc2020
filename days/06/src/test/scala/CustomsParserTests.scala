@@ -29,7 +29,7 @@ class CustomsParserTests extends munit.FunSuite {
     }
   }
   
-  test("Parse multiple groups") {
+  test("Parse multiple groups with union count") {
     val multipleGroupsInput =
     """abc
       |
@@ -48,7 +48,30 @@ class CustomsParserTests extends munit.FunSuite {
       |b""".stripMargin
     checkParseFunc(CustomsParser.personGroups, multipleGroupsInput) { groups =>
       assertEquals(groups.size, 5)
-      assertEquals(groups.map(_.anyOneAnswered.size), List(3, 3, 3, 1, 1))
+      assertEquals(groups.map(_.anyoneAnswered.size), List(3, 3, 3, 1, 1))
+    }
+  }
+
+  test("Parse multiple groups with intersection count") {
+    val multipleGroupsInput =
+      """abc
+        |
+        |a
+        |b
+        |c
+        |
+        |ab
+        |ac
+        |
+        |a
+        |a
+        |a
+        |a
+        |
+        |b""".stripMargin
+    checkParseFunc(CustomsParser.personGroups, multipleGroupsInput) { groups =>
+      assertEquals(groups.size, 5)
+      assertEquals(groups.map(_.everyoneAnswered.size), List(3, 0, 1, 1, 1))
     }
   }
   
