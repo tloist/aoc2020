@@ -9,6 +9,7 @@ lazy val day05 = dayProject(5, "Binary Boarding")
 lazy val day06 = dayProject(6, "Custom Customs")
 lazy val day07 = dayProject(7, "Handy Haversacks")
   .settings(libraryDependencies += guava)
+lazy val day08 = dayProject(8, "Handheld Halting")
 
 lazy val common = project
   .in(file("days/common"))
