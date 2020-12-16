@@ -6,7 +6,7 @@ import cats.parse.{Numbers, Parser, Parser1, Rfc5234 => Rfc}
 object CustomsParser {
 
   private[this] val newline: Parser1[Unit] = Parser.char('\n')
-  val answer: Parser1[Question] = Parser.charIn(Question.validValues).map(c => Question(c))
+  val answer: Parser1[Question] = Parser.charIn('a' to 'z').map(c => Question(c))
 
   val person: Parser1[Person] = Parser.rep1(answer, 1).map(qs => Person(qs.toList.toSet)) <* newline.?
   val personGroup: Parser1[PersonGroup] = person.rep1.map(ps => PersonGroup(ps))

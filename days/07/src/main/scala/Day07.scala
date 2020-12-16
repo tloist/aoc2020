@@ -15,3 +15,15 @@ object Part1 {
     }
   }
 }
+
+object Part2 {
+  def main(args: Array[String]): Unit = {
+    RulesParser(Input.asString()) match {
+      case Left(error) => println(s"Couldn't parse the input due to: $error")
+      case Right(rules) =>
+        val graph = Graph(rules)
+        val bagCount = graph.bagCountToLeafs(shinyGold)
+        println(s"You need $bagCount bags to have a single '$shinyGold' one. Insane!")
+    }
+  }
+}
