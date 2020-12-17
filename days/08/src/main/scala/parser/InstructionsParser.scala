@@ -23,7 +23,7 @@ object InstructionsParser {
   private def readLine(line: String): Either[Error, Instruction] = {
     val splitted = line.split(" ")
     if splitted.size != 2 then Left(Error.IllegalStructuredLine(line))
-    else OpCode.values.find(_.code == splitted(0))
+    else Instruction.OpCode.values.find(_.code == splitted(0))
       .map(_.toInstruction(splitted(1).toInt))
       .map(Right(_))
       .getOrElse(Left(Error.UnknownOpCode(splitted(0))))
