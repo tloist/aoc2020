@@ -12,6 +12,7 @@ lazy val day07 = dayProject(7, "Handy Haversacks")
 lazy val day08 = dayProject(8, "Handheld Halting")
 lazy val day09 = dayProject(9, "Encoding Error")
 lazy val day10 = dayProject(10, "Adapter Array")
+lazy val day11 = dayProject(11, "Seating System")
 
 lazy val common = project
   .in(file("days/common"))
