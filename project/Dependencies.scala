@@ -5,5 +5,6 @@ object Dependencies {
   val betterFiles = "com.github.pathikrit" % "better-files_2.13" % "3.9.1"
   val guava = "com.google.guava" % "guava" % "30.1-jre"
   val junitInterface = "com.novocode" % "junit-interface" % "0.11"
-  val munit = "org.scalameta" %% "munit" % "0.7.19"
+  val scalacheck = "org.scalameta" %% "munit-scalacheck" % "0.7.20"
+  val munit = "org.scalameta" %% "munit" % "0.7.20"
 }

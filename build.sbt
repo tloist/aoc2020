@@ -13,6 +13,8 @@ lazy val day08 = dayProject(8, "Handheld Halting")
 lazy val day09 = dayProject(9, "Encoding Error")
 lazy val day10 = dayProject(10, "Adapter Array")
 lazy val day11 = dayProject(11, "Seating System")
+lazy val day12 = dayProject(12, "Rain Risk")
+  .settings(libraryDependencies += scalacheck % Test)
 
 lazy val common = project
   .in(file("days/common"))
